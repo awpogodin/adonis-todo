@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Список задач</title>
+  {{ style('https://use.fontawesome.com/releases/v5.8.1/css/all.css') }}
+  {{ style('https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.1/css/bulma.min.css') }}
+</head>
+
+<body>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand is-centered">
+      <a class="navbar-item" href="https://bulma.io">
+        Todo App
+      </a>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-8 is-offset-2">
+          @!section('content')
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+
+</html>

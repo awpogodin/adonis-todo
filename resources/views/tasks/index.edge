@@ -1,0 +1,72 @@
+@layout('master')
+
+@section('content')
+<div class="box">
+  <h2 class="title">Новая задача</h2>
+
+  <form action="/tasks" method="POST">
+    {{ csrfField() }}
+
+    <div class="field has-addons">
+      <div class="control is-expanded">
+        <input class="input" type="text" name="title" value="{{ old('title', '') }}" placeholder="Task title">
+      </div>
+      <div class="control">
+        <button type="submit" class="button is-primary">
+          Добавить
+        </button>
+      </div>
+    </div>
+
+    {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('title'), hasErrorFor('title')) }}
+  </form>
+</div>
+
+@if(old('notification'))
+<div class="notification is-success">
+  {{ old('notification') }}
+</div>
+@endif
+
+<td class="box">
+  <h1 class="title">Список задач</h1>
+
+  <table class="table is-bordered is-striped is-narrow is-fullwidth">
+    <thead>
+      <tr>
+        <th>№</th>
+        <th>Задача</th>
+        <th>Действие</th>
+      </tr>
+    </thead>
+    <tbody>
+      @each(task in tasks)
+      <tr>
+        <td>
+          {{ ($loop.index + 1) }}
+        </td>
+        <td>
+          {{ task.title }}
+        </td>
+        <td>
+          <form action="{{ 'tasks/' + task.id + '?_method=DELETE' }}" method="POST">
+            {{ csrfField() }}
+
+            <button type="submit" class="button is-danger is-outlined">
+              <span>Удалить</span>
+              <span class="icon is-small">
+                <i class="fa fa-times" aria-hidden="true"></i>
+              </span>
+            </button>
+          </form>
+        </td>
+      </tr>
+      @else
+      <tr>
+        <td colspan="3" class="has-text-centered">Задач пока нет.</td>
+      </tr>
+      @endeach
+    </tbody>
+  </table>
+  </div>
+  @endsection
